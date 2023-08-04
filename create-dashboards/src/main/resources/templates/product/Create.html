@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <title>Create Product</title>
+
+  <th:block th:replace="layout/head :: style-meta" />
+
+  <th:block th:replace="layout/head :: style-app" />
+
+</head>
+
+<body>
+
+<!-- Begin page -->
+<div id="wrapper">
+
+  <th:block th:replace="layout/navbar-custom" />
+
+  <th:block th:replace="layout/left-side-menu" />
+
+  <!-- ============================================================== -->
+  <!-- Start Page Content here -->
+  <!-- ============================================================== -->
+
+  <div class="content-page">
+
+    <div class="content">
+
+      <div class="row">
+        <h1>Create Product</h1>
+      </div>
+
+    </div>
+
+    <th:block th:replace="layout/footer"/>
+
+  </div>
+
+
+  <!-- ============================================================== -->
+  <!-- End Page content -->
+  <!-- ============================================================== -->
+
+
+</div>
+<!-- END wrapper -->
+
+<th:block th:replace="layout/right-bar"/>
+
+<!-- Right bar overlay-->
+<div class="rightbar-overlay"></div>
+
+<th:block th:replace="layout/script :: script-vendor"/>
+
+<!-- Third Party js-->
+<script src="assets\libs\peity\jquery.peity.min.js"></script>
+<script src="assets\libs\apexcharts\apexcharts.min.js"></script>
+<script src="assets\libs\jquery-vectormap\jquery-jvectormap-1.2.2.min.js"></script>
+<script src="assets\libs\jquery-vectormap\jquery-jvectormap-us-merc-en.js"></script>
+
+<!-- Dashboard init -->
+<script src="assets\js\pages\dashboard-1.init.js"></script>
+
+<th:block th:replace="layout/script :: script-app"/>
+
+</body>
+</html>
