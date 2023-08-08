@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:fragment="header">
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .error {
+      color: red;
+      display: none;
+    }
+    .input-custom:invalid[focused="true"]~span {
+      display: block;
+    }
+    .hover:hover {
+      cursor: pointer;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.css" integrity="sha512-K0TEY7Pji02TnO4NY04f+IU66vsp8z3ecHoID7y0FSVRJHdlaLp/TkhS5WDL3OygMkVns4bz0/ah4j8M3GgguA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:fragment="footer">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!--  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+  <script src="/quiz.js"></script>
+  <script>
+    function formInput(props, index) {
+      if (props.type === 'select') {
+        return formSelect(props, index)
+      }
+      return `<div class="${props.classDiv}">
+                <label>${props.label}</label>
+                    <input class="input-custom form-control"
+                    type="${props.type || 'text' || 'number'}"
+                    min=1000
+                    minlength=5
+                    maxlength=20
+                    name="${props.name}"
+                    onblur="onFocus(${index})"
+                    ${props.pattern ? `pattern=${props.pattern}` : ""}
+                    value="${props.value}"
+                    ${props.required ? 'required' : ''} />
+                <span class="error">${props.message}</span>
+            </div>`
+    }
+    function formSelect(props, index) {
+      let optionsStr = "";
+      props.options.forEach(e => {
+        if(props.value === e.name){
+          optionsStr += `<option value="${e.value}" selected>${e.name}</option>`;
+        }else {
+          optionsStr += `<option value="${e.value}" >${e.name}</option>`;
+        }
+
+      })
+
+      return `<div class="${props.classDiv}">
+                <label>${props.label}</label>
+                    <select class="input-custom form-control"
+                    type="${props.type || 'text'}" name="${props.name}"
+                    onblur="onFocus(${index})"
+                    ${props.pattern ? `pattern=${props.pattern}` : ""}
+                    value="${props.value}"
+                    ${props.required ? 'required' : ''}>
+                        <option value>---Choose---</option>
+                        ${optionsStr}
+                    </select>
+                    <span class="error">${props.message}</span>
+            </div>`
+    }
+    const onFocus = (index) => {
+      const inputsForm = document.querySelectorAll('#formBody .input-custom')
+      inputsForm[index].setAttribute("focused", "true");
+    }
+
+    document.addEventListener('invalid', (function () {
+      return function (e) {
+        e.preventDefault();
+        e.target.onblur();
+      };
+    })(), true);
+  </script>
+</div>
+
+</body>
+</html>
