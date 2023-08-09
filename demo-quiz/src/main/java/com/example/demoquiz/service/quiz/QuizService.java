@@ -2,6 +2,8 @@ package com.example.demoquiz.service.quiz;
 
 import com.example.demoquiz.model.Quiz;
 import com.example.demoquiz.repository.QuizRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,8 +17,8 @@ public class QuizService {
         this.quizRepository = quizRepository;
     }
 
-    public List<Quiz> findAll() {
+    public Page<Quiz> findAll(Pageable pageable) {
 
-        return quizRepository.findAll();
+        return quizRepository.findAll(pageable);
     }
 }

@@ -5,18 +5,19 @@
     <title>Title</title>
 </head>
 <body>
+
 <div class="container d-flex justify-content-evenly">
-    <div id="quiz" class="col-9" style="margin-right: 5%">
+    <div id="quiz" class="col-10">
 
     </div>
-    <div class="col-3">
-        <div id="select-question" class="text-center alert alert-light" style="margin-top: 17%">
+<!--    <div class="col-3">-->
+<!--        <div id="select-question" class="text-center alert alert-light" style="margin-top: 17%">-->
 
-        </div>
-    </div>
+<!--        </div>-->
+<!--    </div>-->
 </div>
 <div class="text-center container">
-    <button class="btn btn-outline-danger">Submit</button>
+    <button onclick="submit()" type="submit" class="btn btn-outline-danger" style="margin: 5% 0;padding: 10px 20px">Submit</button>
 </div>
 <div th:replace="layout.html :: footer"></div>
 </body>
