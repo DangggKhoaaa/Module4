@@ -20,7 +20,8 @@ public class Question {
 
     private String content;
 
-    private String type;
+    @Enumerated(value = EnumType.STRING)
+    private Type type;
 
     @ManyToOne
     @JoinColumn(name = "quiz_id")

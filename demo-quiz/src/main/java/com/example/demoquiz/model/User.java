@@ -27,4 +27,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<UserQuiz> userQuizzes;
+
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
 }

@@ -31,7 +31,7 @@ public class QuestionRestController {
         return questionService.findAll();
     }
     @GetMapping("{id}")
-    public Page<Question> findQuestionByQuiz(@PathVariable Long id, @PageableDefault(size = 9)Pageable pageable){
+    public Page<Question> findQuestionByQuiz(@PathVariable Long id, @PageableDefault(size = 10)Pageable pageable){
         return questionService.findQuestionByQuiz(id, pageable);
     }
 }

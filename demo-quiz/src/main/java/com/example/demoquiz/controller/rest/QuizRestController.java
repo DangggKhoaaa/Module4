@@ -3,14 +3,12 @@ package com.example.demoquiz.controller.rest;
 import com.example.demoquiz.model.Quiz;
 import com.example.demoquiz.repository.QuizRepository;
 import com.example.demoquiz.service.quiz.QuizService;
+import com.example.demoquiz.service.request.UserQuizSaveRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,8 +25,9 @@ public class QuizRestController {
         this.quizRepository = quizRepository;
     }
 
-    @GetMapping("{id}")
-    public Page<Quiz> findAll(@PageableDefault(size = 9) Pageable pageable, @PathVariable Long id) {
+    @GetMapping
+    public Page<Quiz> findAll(@PageableDefault(size = 10) Pageable pageable) {
         return quizService.findAll(pageable);
     }
+
 }

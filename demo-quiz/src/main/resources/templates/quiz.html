@@ -5,20 +5,22 @@
     <title>Title</title>
 </head>
 <body>
+<!--<form action="/quiz/save-score"  method="post">-->
+    <div class="container d-flex justify-content-evenly">
+        <div id="quiz" class="col-10" style="margin-right: 2%">
 
-<div class="container d-flex justify-content-evenly">
-    <div id="quiz" class="col-10">
+        </div>
+        <div class="col-2 select-block">
+            <div id="select-question" class="text-center alert alert-dark">
 
+            </div>
+        </div>
     </div>
-<!--    <div class="col-3">-->
-<!--        <div id="select-question" class="text-center alert alert-light" style="margin-top: 17%">-->
+    <div class="text-center container-fluid submit-block">
+        <button onclick="submit()" type="submit" class="btn btn-outline-danger" style="margin: 2% 0;padding: 10px 20px">Submit</button>
+    </div>
+<!--</form>-->
 
-<!--        </div>-->
-<!--    </div>-->
-</div>
-<div class="text-center container">
-    <button onclick="submit()" type="submit" class="btn btn-outline-danger" style="margin: 5% 0;padding: 10px 20px">Submit</button>
-</div>
 <div th:replace="layout.html :: footer"></div>
 </body>
 
