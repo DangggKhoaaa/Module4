@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banking</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <style>
+    .navbar {
+      height: 80px;
+    }
+
+    .bg-navbar {
+      background-color: #299be4;
+      color: #fff;
+    }
+
+    .d-flex {
+      gap: 5px;
+    }
+
+    table thead tr th {
+      background-color: #4caf50 !important;
+      color: #fff !important;
+    }
+
+    .toastContainer.toastmiddlecenter {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <header>
+    <nav class="navbar bg-navbar">
+      <div class="container-fluid">
+        <h2>List of customers</h2>
+        <div class="d-flex">
+          <button class="btn btn-outline-light">
+            <i class="fas fa-history"></i>
+            Transfer histories
+          </button>
+          <button class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#modalCreate">
+            <i class="fas fa-user-plus"></i>
+            Add New Customer
+          </button>
+          <button class="btn btn-outline-light" id="btnTest">
+            Test create
+          </button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="content">
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>FullName</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Balance</th>
+        <th colspan="5" class="text-center">Action</th>
+      </tr>
+      </thead>
+      <tbody id="tbCustomerBody">
+      <!-- <tr>
+          <td>1</td>
+          <td>Mark</td>
+          <td>Mark@co.cc</td>
+          <td>28 Nguyễn Tri Phương</td>
+          <td>10.000</td>
+          <td>
+              <button class="btn btn-outline-secondary">
+                  <i class="fas fa-user-edit"></i>
+              </button>
+          </td>
+          <td>
+              <button class="btn btn-outline-success">
+                  <i class="fas fa-plus"></i>
+              </button>
+          </td>
+          <td>
+              <button class="btn btn-outline-warning">
+                  <i class="fas fa-minus"></i>
+              </button>
+          </td>
+          <td>
+              <button class="btn btn-outline-primary">
+                  <i class="fas fa-exchange-alt"></i>
+              </button>
+          </td>
+          <td>
+              <button class="btn btn-outline-danger">
+                  <i class="fas fa-user-slash"></i>
+              </button>
+          </td>
+      </tr> -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal Create -->
+<div class="modal fade" id="modalCreate" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Modal create</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row mb-3">
+            <div class="col-lg-6">
+              <label for="fullNameCre">FullName</label>
+              <input type="text" id="fullNameCre" class="form-control">
+            </div>
+            <div class="col-lg-6">
+              <label for="emailCre">Email</label>
+              <input type="email" id="emailCre" class="form-control">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-6">
+              <label for="phoneCre">Phone</label>
+              <input type="tel" id="phoneCre" class="form-control">
+            </div>
+            <div class="col-lg-6">
+              <label for="addressCre">Address</label>
+              <input type="text" id="addressCre" class="form-control">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btnCreate">Create</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Update -->
+<div class="modal fade" id="modalUpdate" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Modal update</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row mb-3">
+            <input type="hidden" id="idUp">
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-lg-6">
+              <label for="fullNameUp">FullName</label>
+              <input type="text" id="fullNameUp" class="form-control">
+            </div>
+            <div class="col-lg-6">
+              <label for="emailUp">Email</label>
+              <input type="email" id="emailUp" class="form-control">
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-lg-6">
+              <label for="phoneUp">Phone</label>
+              <input type="tel" id="phoneUp" class="form-control">
+            </div>
+            <div class="col-lg-6">
+              <label for="addressUp">Address</label>
+              <input type="text" id="addressUp" class="form-control">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="btnUpdate">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+  const customers = [
+    {
+      "id": 1,
+      "fullName": "Keith Heath",
+      "email": "virigehib@mailinator.com",
+      "phone": "+1 (182) 724-6958",
+      "address": "At eum in eligendi u",
+      "balance": 10000,
+      "deleted": 0
+    },
+    {
+      "id": 2,
+      "fullName": "Shana Massey",
+      "email": "jyruqy@mailinator.com",
+      "phone": "+1 (883) 837-3114",
+      "address": "Et iusto ullam incid",
+      "balance": 39000,
+      "deleted": 0
+    }
+  ]
+
+  const renderCustomer = (obj) => {
+    return `
+                <tr id="tr_${obj.id}">
+                    <td>${obj.id}</td>
+                    <td>${obj.fullName}</td>
+                    <td>${obj.email}</td>
+                    <td>${obj.address}</td>
+                    <td>${obj.balance}</td>
+                    <td>
+                        <button class="btn btn-outline-secondary edit" data-id="${obj.id}">
+                            <i class="fas fa-user-edit"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-success">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-warning">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-danger">
+                            <i class="fas fa-user-slash"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+  }
+
+
+  const strBody = $('#tbCustomerBody');
+
+  const getAllCustomers = () => {
+    let url = "http://localhost:8080/api/customer";
+
+    $.ajax({
+      type: 'get',
+      url: url,
+      success: function (res) {
+        strBody.empty();
+
+        $.each(res, (index, item) => {
+          const str = renderCustomer(item);
+          $(strBody).prepend(str);
+        })
+
+        $('.edit').on('click', function () {
+          const id = $(this).data('id');
+          $.ajax({
+            url: url + '/' + id
+          })
+                  .done((data) => {
+                    if (Object.keys(data).length > 0) {
+
+                      $.each(data, (k, v) => {
+                        $('#' + k + 'Up').val(v);
+                      })
+
+
+                      $('#modalUpdate').modal('show');
+                    }
+                    else {
+                      alert('Say No');
+                    }
+                  })
+                  .fail((error) => {
+                    console.log(error);
+                  })
+
+        })
+
+      }, error: function () {
+        alert('Error');
+      }
+    });
+  }
+
+  getAllCustomers();
+
+  const btnTest = $('#btnTest');
+  btnTest.on('click', () => {
+    const obj = {
+      fullName: "Bảo Thi 2",
+      email: "baothi2@co.cc",
+      phone: "+1 (182) 724-6958",
+      address: "At eum in eligendi u",
+      balance: 0,
+      deleted: 0
+    }
+
+    $.ajax({
+      headers: {
+        'accept': 'application/json',
+        'content-type': 'application/json'
+      },
+      type: 'POST',
+      url: 'http://localhost:8080/api/customer',
+      data: obj
+    })
+            .done((data) => {
+              console.log("Success");
+              console.log(data);
+            })
+            .fail((error) => {
+              console.log(error);
+            })
+  })
+
+  const btnCreate = $('#btnCreate');
+  btnCreate.on('click', () => {
+    btnCreate.attr('disabled', true);
+
+    // let load = webToast.loading({
+    //   status: 'Loading...',
+    //   message: 'Please Wait a moment',
+    //   align: 'bottomright',
+    //   line: true,
+    // });
+
+    const obj = {
+      fullName: $('#fullNameCre').val(),
+      email: $('#emailCre').val(),
+      phone: $('#phoneCre').val(),
+      address: $('#addressCre').val(),
+      balance: 0,
+      deleted: 0
+    }
+
+    setTimeout(() => {
+      $.ajax({
+        headers: {
+          'accept': 'application/json',
+          'content-type': 'application/json'
+        },
+        type: 'POST',
+        url: 'http://localhost:8080/api/customer',
+        data: obj
+      })
+              .done((data) => {
+                console.log("Success");
+                const str = renderCustomer(data);
+                $(strBody).prepend(str);
+
+                $('#modalCreate').hide();
+
+                // webToast.Success({
+                //   status: 'Thêm mới thành công',
+                //   message: '',
+                //   delay: 2000,
+                //   align: 'topright'
+                // });
+                alert("Thêm mới thành công")
+
+              })
+              .fail((error) => {
+                console.log(error);
+              })
+              .always(() => {
+                btnCreate.attr('disabled', false);
+                load.remove();
+              })
+    }, 5000);
+  })
+
+
+  const btnUpdate = $('#btnUpdate');
+  btnUpdate.on('click', () => {
+    btnUpdate.attr('disabled', true);
+
+    const customerId = $('#idUp').val();
+
+    let load = webToast.loading({
+      status: 'Loading...',
+      message: 'Please Wait a moment',
+      align: 'bottomright',
+      line: true,
+    });
+
+    const obj = {
+      fullName: $('#fullNameUp').val(),
+      email: $('#emailUp').val(),
+      phone: $('#phoneUp').val(),
+      address: $('#addressUp').val()
+    }
+
+    setTimeout(() => {
+      $.ajax({
+        headers: {
+          'accept': 'application/json',
+          'content-type': 'application/json'
+        },
+        type: 'PATCH',
+        url: 'http://localhost:3300/api/customers/' + customerId,
+        data: obj
+      })
+              .done((data) => {
+                const str = renderCustomer(data);
+                const currentRow = $('#tr_' + customerId);
+                currentRow.replaceWith(str);
+
+                $('#modalUpdate').modal('hide');
+
+                webToast.Success({
+                  status: 'Cập nhật thành công',
+                  message: '',
+                  delay: 2000,
+                  align: 'topright'
+                });
+
+              })
+              .fail((error) => {
+                console.log(error);
+              })
+              .always(() => {
+                btnUpdate.attr('disabled', false);
+                load.remove();
+              })
+    }, 5000);
+  })
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</body>
+
+</html>
