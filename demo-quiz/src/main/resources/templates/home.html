@@ -5,27 +5,40 @@
     <title>Title</title>
 </head>
 <body>
-<div>
-    <a href="http://localhost:8080/quiz" onclick="renderQuiz()">Quiz 1</a>
-    <a href="http://localhost:8080/quiz" onclick="renderQuiz()">Quiz 2</a>
-</div>
-<div class="d-flex justify-content-between" style="margin: 10px 0">
-    <button type="button" class="btn btn-success col-1" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="showEdit(-1)">
-        Create
-    </button>
-    <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#000000" title="Choose your color" onchange="changeTextColor()">
-    <div role="search">
-        <input class="form-control me-2" id="search" type="search" placeholder="Search" aria-label="Search" oninput="onSearch()">
-        <!--      <button class="btn btn-success" type="submit">Search</button>-->
+<div class="container">
+    <div class="d-flex justify-content-between" style="margin: 10px 0">
+        <button type="button" class="btn btn-success col-1" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="showEdit(-1)">
+            Create
+        </button>
+        <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#000000" title="Choose your color" onchange="changeTextColor()">
+        <div role="search">
+            <input class="form-control me-2" id="search" type="search" placeholder="Search" aria-label="Search" oninput="onSearch()">
+            <!--      <button class="btn btn-success" type="submit">Search</button>-->
+        </div>
+        <nav aria-label="..." class="Page navigation example d-flex position-absolute bottom-0 end-0" style="margin: 0 8% 2% 0">
+            <ul id="pagination" class="pagination justify-content-end">
+            </ul>
+        </nav>
+        <a href="http://localhost:8080/logout" class="btn btn-danger col-1">
+            Logout
+        </a>
     </div>
-    <nav aria-label="..." class="Page navigation example d-flex position-absolute bottom-0 end-0" style="margin: 0 8% 2% 0">
-        <ul id="pagination" class="pagination justify-content-end">
-        </ul>
-    </nav>
-    <a href="http://localhost:8080/logout" class="btn btn-success col-1">
-        Logout
-    </a>
+
+    <div>
+        <div class="alert alert-dark container-fluid">
+            <h3 class="textColor">Quiz 1</h3>
+            <h5 class="textColor">Bài kiểm tra qua module, không qua thì thôi</h5>
+            <a class="btn btn-primary" href="http://localhost:8080/quiz/1">Vào làm</a>
+        </div>
+
+        <div class="alert alert-dark container-fluid">
+            <h3 class="textColor">Quiz 2</h3>
+            <h5 class="textColor">Bài kiểm tra qua module, không qua thì đóng 3 triệu</h5>
+            <a class="btn btn-primary" href="http://localhost:8080/quiz/2">Vào làm</a>
+        </div>
+    </div>
 </div>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <form id="form" onsubmit="onSubmit(event)">
@@ -35,9 +48,6 @@
                     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="onClose()"></button>
                 </div>
-                <!--          <div class="alert alert-info" id="alert">-->
-                <!--            Thêm thành công!!!-->
-                <!--          </div>-->
                 <div class="modal-body" id="formBody">
                     <input type="text" id="title" />
                 </div>
@@ -120,6 +130,8 @@ function showEdit(index) {
         })
     }
     initData();
+
+
 </script>
 </body>
 <script src="/quiz.js"></script>

@@ -5,23 +5,48 @@
     <title>Title</title>
 </head>
 <body>
-<!--<form action="/quiz/save-score"  method="post">-->
-    <div class="container d-flex justify-content-evenly">
+<div class="container">
+
+    <div class="d-flex justify-content-evenly">
         <div id="quiz" class="col-10" style="margin-right: 2%">
 
         </div>
         <div class="col-2 select-block">
+            <div class="text-center alert alert-dark container-fluid user-block">
+                <div>
+                    <span class="h3">Tên học viên: </span>
+                    <span class="h3" th:text="${user.name}"></span>
+                </div>
+            </div>
+            <div class="text-center alert alert-dark container-fluid user-block">
+                <div>
+                    <span class="h3">Thời gian làm bài: </span>
+                    <span class="h3" id="countdown"></span>
+                    <span class="h3">s</span>
+                </div>
+            </div>
             <div id="select-question" class="text-center alert alert-dark">
 
             </div>
         </div>
     </div>
-    <div class="text-center container-fluid submit-block">
-        <button onclick="submit()" type="submit" class="btn btn-outline-danger" style="margin: 2% 0;padding: 10px 20px">Submit</button>
+    <div class="d-flex justify-content-evenly">
+        <a href="http://localhost:8080/home" id="home" class="btn btn-danger" style="margin: 1% 0;padding: 10px 20px">Home</a>
+        <a onclick="reloadPage()" id="retry" class="btn btn-primary" style="margin: 1% 0;padding: 10px 20px">Retry</a>
     </div>
-<!--</form>-->
+    <div id="submit" class="text-center container-fluid submit-block">
+        <button onclick="submit()" type="submit" class="btn btn-danger" style="margin: 1% 0;padding: 10px 20px">Submit</button>
+    </div>
+
+</div>
+
+
 
 <div th:replace="layout.html :: footer"></div>
+<script>
+
+
+</script>
 </body>
 
 </html>

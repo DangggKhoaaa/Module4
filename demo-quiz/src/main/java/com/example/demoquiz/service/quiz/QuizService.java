@@ -13,8 +13,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
 
 @Service
 public class QuizService {
@@ -23,19 +21,15 @@ public class QuizService {
 
     private final UserQuizRepository userQuizRepository;
 
-    private final QuestionRepository questionRepository;
 
-    public QuizService(QuizRepository quizRepository, UserQuizRepository userQuizRepository, QuestionRepository questionRepository) {
+    public QuizService(QuizRepository quizRepository, UserQuizRepository userQuizRepository) {
         this.quizRepository = quizRepository;
         this.userQuizRepository = userQuizRepository;
-        this.questionRepository = questionRepository;
     }
 
     public Page<Quiz> findAll(Pageable pageable) {
 
         return quizRepository.findAll(pageable);
-
-
     }
 
     public Quiz findById(Long id) {

@@ -32,11 +32,9 @@ public class SaveScoreRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveScore(@RequestBody UserQuizSaveRequest scoreData) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        User user = userRepository.findAllByEmailIgnoreCase(email).get();
+    public ResponseEntity<?> saveScore(@RequestBody UserQuizSaveRequest scoreData, Authentication authentication) {
 
+        User user = userRepository.findAllByEmailIgnoreCase(authentication.getName()).get();
 
         UserQuiz userQuiz = new UserQuiz();
         userQuiz.setScore(Integer.valueOf(scoreData.getScore()));
